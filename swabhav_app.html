@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app='swabhav.app'>
+    <div ng-controller='MainController'>
+        {{data.message}}
+    </div>
+    <div ng-controller='controllerA'>
+        {{data.message}}
+    </div>
+    <script src="angular.js">
+    </script>
+    <script>
+        angular.module("swabhav.app", ['moduleA']).controller('MainController',
+            function($scope, $rootScope) {
+                console.log("Inside the controller");
+                console.log($scope);
+                console.log($rootScope);
+                $scope.data = {
+                    message: "Hello from the main controller"
+                };
+            });
+
+        angular.module("moduleA", []).controller('controllerA', function($scope) {
+            $scope.data = {
+                message: "Hello from the A controller"
+            };
+        });
+    </script>
+</body>
+
+</html>

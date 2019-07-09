@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Load student profile on click event</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app='swabhav.app'>
+
+
+    <div ng-controller='MainController'>
+
+        <button type="button" ng-click="loadStudentData()">load student profile</button>
+
+        <p>name : {{student.name}} </p>
+        <p>age : {{student.age}} </p>
+        <p>year : {{student.year}} </p>
+
+        Image:<br>
+        <img src={{student.image}} alt="" width="100" height="100">
+    </div>
+
+
+    <script src="angular.js ">
+    </script>
+    <script>
+        angular.module("swabhav.app", []).controller('MainController',
+            function($scope, $rootScope, $timeout) {
+                $scope.student = {};
+
+                $scope.loadStudentData = function() {
+                    $timeout(function() {
+                        $scope.student = {
+                            name: 'darshan',
+                            age: '19',
+                            year: '1rd year',
+                            image: 'student.png'
+                        }
+                    }, 3000)
+                    $scope.student = {
+                        name: 'hiren',
+                        age: '21',
+                        year: '3rd year',
+                        image: 'student2.png'
+                    }
+
+                };
+            });
+    </script>
+</body>
+
+</html>
