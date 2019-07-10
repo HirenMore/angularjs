@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Two way binding</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app='swabhav.app'>
+
+
+    <div ng-controller='MainController'>
+
+        <input type="text" data-ng-model="student.name" />
+        <p>{{student.name}} </p>
+
+
+
+    </div>
+
+
+    <script src="angular.js ">
+    </script>
+    <script>
+        angular.module("swabhav.app", []).controller('MainController',
+            function($scope) {
+                $scope.student = {
+
+                };
+            });
+    </script>
+</body>
+
+</html>
