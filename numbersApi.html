@@ -11,30 +11,50 @@
 
 
     <div ng-controller='MainController'>
-        <p>{{data}}</p>
+        <input type="number" ng-model="number">
+        <button type="button" ng-click="fatchNumberData()">search</button>
+        <button type="button" ng-click="deleteFactList()">deleteAll</button>
+        <p ng-repeat="fact in factList | reverse">{{fact}}</p>
+
     </div>
 
 
     <script src="angular.js ">
     </script>
+    <script src="ngStorage.js">
+    </script>
     <script>
-        angular.module("swabhav.app", []).controller('MainController',
-            function($scope, $http) {
-                // var promise = $http.get('http://numbersapi.com/3')
+        angular.module("swabhav.app", ['ngStorage']).controller('MainController',
+            function($scope, $http, $localStorage) {
+                $scope.number = '';
+                if ($localStorage.factList)
+                    $scope.factList = $localStorage.factList;
+                if (!$localStorage.factList)
+                    $scope.factList = [];
 
-                var promise1 = $http.get('http://numbersapi.com/3');
-                $scope.data = "hello";
-                promise1.then(function(dataObject) {
-                    console.log("Insdie the successcall back");
-                    console.log(dataObject.data);
 
-                    $scope.data = dataObject.data;
-                }, function(data) {
-                    console.log("Insdie the error back");
-                    $scope.data = data;
-                })
 
+
+                $scope.fatchNumberData = function() {
+                    $http.get('http://numbersapi.com/' + $scope.number).then(function(dataObject) {
+                        $scope.factList.push(dataObject.data)
+                        $localStorage.factList = $scope.factList;
+                    }, function(dataObject) {
+                        console.log("Some Error occured");
+                    })
+                }
+
+                $scope.deleteFactList = function() {
+                    $localStorage.factList = null;
+                    $scope.factList.splice(0)
+                }
             });
+
+        angular.module("swabhav.app", ).filter('reverse', function() {
+            return function(items) {
+                return items.slice().reverse();
+            };
+        });
     </script>
 </body>
 
